@@ -269,16 +269,7 @@ public class Frame extends javax.swing.JFrame {
 	}
 	
 	private boolean isValidUsername (String user) {
-		return user.length () >= 6 && 
-			! (
-				user.contains ("select") ||
-				user.contains ("from") ||
-				user.contains ("where") ||
-				user.contains ("union") ||
-				user.contains ("join") ||
-				user.contains ("insert") ||
-				user.contains ("delete")
-			);
+		return user.matches ("([A-Za-z0-9]){6,}");
 	}
 	
 	private boolean isExistingUser (String user) {
