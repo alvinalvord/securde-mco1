@@ -64,6 +64,27 @@ public class SQLite {
         } catch (Exception ex) {}
         return users;
     }
+	
+	public boolean userExists (String user) {
+		StringBuilder sb = new StringBuilder ();
+		sb.append ("select username ")
+			.append (" from users ")
+			.append (" where username = '").append (user).append ("'");
+		
+		String sql = sb.toString ();
+		
+		try (Connection conn = DriverManager.getConnection(driverURL);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next ()) { return true; }
+		} catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database");
+			System.exit (0);
+		}
+		
+		return false;
+	}
     
     public void addUser(String username, String password) {
         String sql = "INSERT INTO users(username,password) VALUES('" + username + "','" + password + "')";
@@ -87,7 +108,6 @@ public class SQLite {
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()){
             stmt.execute(sql);
-            
         } catch (Exception ex) {}
     }
     

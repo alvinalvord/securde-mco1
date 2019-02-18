@@ -99,20 +99,22 @@ public class Register extends javax.swing.JPanel {
                 .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+	
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-		if (new String (password.getPassword ()).equals (new String (confpass.getPassword ()))) {
-			frame.registerAction(username.getText(), new String (password.getPassword()), new String (confpass.getPassword()));
+		String user = username.getText ().toLowerCase ();
+		String pw = new String (password.getPassword ());
+		String cpw = new String (confpass.getPassword ());
+		
+		if (frame.registerAction(user, pw, cpw)) {
 			username.setText ("");
 			password.setText ("");
 			confpass.setText ("");
 			frame.loginNav();
 		} else {
-			System.out.println (java.time.LocalDateTime.now () + " registration error occurred");
-			javax.swing.JOptionPane.showMessageDialog (frame, "Please confirm password.", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
 			password.setText ("");
 			confpass.setText ("");
 		}
+		
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

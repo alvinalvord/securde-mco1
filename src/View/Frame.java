@@ -246,8 +246,89 @@ public class Frame extends javax.swing.JFrame {
         frameView.show(Container, "registerPnl");
     }
     
-    public void registerAction(String username, String password, String confpass){
-        controller.sqlite.addUser(username, password);
+	private boolean isNullUsername (String user) {
+		if (user == null) return true;
+		if (user.length () == 0) return true;
+		return false;
+	}
+	
+	private boolean isNullPassword (String pw, String cpw) {
+		if (pw == null) return true;
+		if (cpw == null) return true;
+		if (pw.length () == 0) return true;
+		if (cpw.length () == 0) return true;
+		return false;
+	}
+	
+	private boolean isConfirmedPassword (String pw, String cpw) {
+		return pw.equals (cpw);
+	}
+	
+	private boolean isValidPassword (String pw) {
+		return pw.matches ("(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W\\_]).{8,}");
+	}
+	
+	private boolean isValidUsername (String user) {
+		return user.length () >= 6 && 
+			! (
+				user.contains ("select") ||
+				user.contains ("from") ||
+				user.contains ("where") ||
+				user.contains ("union") ||
+				user.contains ("join") ||
+				user.contains ("insert") ||
+				user.contains ("delete")
+			);
+	}
+	
+	private boolean isExistingUser (String user) {
+		return controller.sqlite.userExists (user);
+	}
+	
+    public boolean registerAction(String username, String password, String confpass){
+		
+		if (isNullUsername (username) || isNullPassword (password, confpass)) {
+			Controller.Logger.log ("registration error", "a field during registration was null");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Please do not leave any field empty", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		} 
+		else if (!isConfirmedPassword (password, confpass)) {
+			Controller.Logger.log ("registration error", "password and confirm password does not match");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Please confirm password", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		} 
+		else if (!isValidPassword (password)) {
+			Controller.Logger.log ("registration error", "invalid type of password");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Passwords must contain 8 or more characters with at least one uppercase, one lowercase, one digit, and one symbol", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		} 
+		else if (!isValidUsername (username)) {
+			Controller.Logger.log ("registration error", "invalid type of username");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Username must contain at least 6 alphanumeric characters", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		}
+		else if (isExistingUser (username)) {
+			Controller.Logger.log ("registration error", "username already exists");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Username is already taken", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		} 
+		else {
+			controller.sqlite.addUser(username, password, 2);
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Account has been created", "Registration Successful", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
