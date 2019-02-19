@@ -269,7 +269,7 @@ public class Frame extends javax.swing.JFrame {
 	}
 	
 	private boolean isValidUsername (String user) {
-		return user.matches ("([A-Za-z0-9]){6,}");
+		return user.matches ("([A-Za-z0-9\\_\\.]){6,}");
 	}
 	
 	private boolean isExistingUser (String user) {
@@ -302,7 +302,7 @@ public class Frame extends javax.swing.JFrame {
 		else if (!isValidUsername (username)) {
 			Controller.Logger.log ("registration error", "invalid type of username");
 			
-			javax.swing.JOptionPane.showMessageDialog (this, "Username must contain at least 6 alphanumeric characters", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			javax.swing.JOptionPane.showMessageDialog (this, "Username must contain at least 6 alphanumeric characters, underscore or dot", "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
 			
 			return false;
 		}
