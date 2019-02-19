@@ -65,6 +65,40 @@ public class SQLite {
         return users;
     }
 	
+	public User getUser (String username, String password) {
+		StringBuilder sb = new StringBuilder ();
+		sb.append (" select id, username, password, role ")
+			.append (" from users ")
+			.append (" where username = '")
+				.append (username)
+					.append ("' and ")
+			.append (" password = '")
+				.append (PasswordEncryption.hash (password))
+				.append ("'");
+				
+		String sql = sb.toString ();
+		
+		 try (Connection conn = DriverManager.getConnection(driverURL);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            
+			User user = null;
+            while (rs.next()) {
+				user = new User(rs.getInt("id"),
+                                   rs.getString("username"),
+                                   rs.getString("password"),
+                                   rs.getInt("role"));
+            }
+			return user;
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @login");
+			System.exit (0);
+		}
+		
+		return null;
+	}
+	
 	public boolean userExists (String user) {
 		StringBuilder sb = new StringBuilder ();
 		sb.append ("select username ")
@@ -79,7 +113,7 @@ public class SQLite {
 			while (rs.next ()) { return true; }
 		} catch (Exception ex) {
 			ex.printStackTrace ();
-			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database");
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @register");
 			System.exit (0);
 		}
 		

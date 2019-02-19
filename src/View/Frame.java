@@ -237,6 +237,38 @@ public class Frame extends javax.swing.JFrame {
     public void mainNav(){
         frameView.show(Container, "mainPnl");
     }
+	
+	public boolean authenticate (String username, String password) {
+		if (isNullUsername (username) || isNullPassword (password)) {
+			Controller.Logger.log ("login error", "login username and/or password field is empty");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Please do not leave username and/or password fields empty", "Login Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		Model.User user = controller.sqlite.getUser (username, password);
+		
+		controller.setUser (user);
+		if (user == null) {
+			Controller.Logger.log ("login error", "invalid user credentials");
+			
+			javax.swing.JOptionPane.showMessageDialog (this, "Username or password is invalid", "Login Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+			
+			if (controller.userLock == controller.userLimit) {
+				Controller.Logger.log ("login error", "login limit has been reached forced exit is required");
+			
+				javax.swing.JOptionPane.showMessageDialog (this, "You have logged in 5 times with invalid credentials forcefully closing application", "Login Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+				System.exit (0);
+			}
+			
+			return false;
+		}
+		else {
+			Controller.Logger.log ("user login", "user " + user.getUsername () + " accessed the system");
+			
+			return true;
+		}
+	}
     
     public void loginNav(){
         frameView.show(Container, "loginPnl");
@@ -249,6 +281,12 @@ public class Frame extends javax.swing.JFrame {
 	private boolean isNullUsername (String user) {
 		if (user == null) return true;
 		if (user.length () == 0) return true;
+		return false;
+	}
+	
+	private boolean isNullPassword (String pw) {
+		if (pw == null) return true;
+		if (pw.length () == 0) return true;
 		return false;
 	}
 	

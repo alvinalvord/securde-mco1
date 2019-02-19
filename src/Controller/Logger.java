@@ -7,7 +7,7 @@ public class Logger {
 	public static final String path = "../logs/";
 	
 	public static void log (String error, String message) {
-		System.out.println ("error: " + error + " has occurred.");
+		System.out.println ("event: " + error + " has occurred.");
 		System.out.println (message);
 		try {
 			String time = java.time.LocalDateTime.now ().toString ().replaceAll ("[^\\d\\w]", "_");

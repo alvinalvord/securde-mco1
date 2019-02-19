@@ -10,6 +10,21 @@ import java.util.ArrayList;
 public class Main {
     
     public SQLite sqlite;
+	private User user;
+	public int userLock;
+	public static final int userLimit = 5;
+	
+	public void setUser (User user) {
+		if (user == null) 
+			userLock ++;
+		else {
+			this.user = user; userLock = 0;
+		}
+	}
+	
+	public User getUser () {
+		return user;
+	}
     
     public static void main(String[] args) {
         new Main().init();
@@ -18,6 +33,9 @@ public class Main {
     public void init(){
         // Initialize a driver object
         sqlite = new SQLite();
+		
+		user = null;
+		userLock = 0;
 
         // Create a database
         sqlite.createNewDatabase();
