@@ -21,6 +21,7 @@
 - [x] on database failure, program must close
 - [x] on exception, errors must be reported
 - [x] on logout, user must reset
+- [x] on database, table must exist before dropping
 
 # list of changes:
 Security Issue | Java file(s) modified | Possible Vulnerability | Solution
