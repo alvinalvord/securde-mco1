@@ -47,11 +47,11 @@ public class Main {
         sqlite.createUserTable();
         
         // Add users
-        sqlite.addUser("admin", "Qwerty.1234" , 5);
-        sqlite.addUser("manager", "Qwerty.1234", 4);
-        sqlite.addUser("staff", "Qwerty.1234", 3);
-        sqlite.addUser("client1", "Qwerty.1234", 2);
-        sqlite.addUser("client2", "Qwerty.1234", 2);
+        sqlite.addUser("admin", "qwerty1234" , 5);
+        sqlite.addUser("manager", "qwerty1234", 4);
+        sqlite.addUser("staff", "qwerty1234", 3);
+        sqlite.addUser("client1", "qwerty1234", 2);
+        sqlite.addUser("client2", "qwerty1234", 2);
         
         // Get users
         ArrayList<User> users = sqlite.getUsers();
