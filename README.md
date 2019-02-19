@@ -15,10 +15,10 @@
 - [x] on register, username and password must not be null
 - [x] on register, username must be unique
 - [x] on register, errors must be logged
-- [ ] on access, user should not access all roles
+- [x] on access, user should not access all roles
 - [x] on database, password should be encrypted
 - [ ] on database operation, logs must be recorded
-- [ ] on database failure, program must close
+- [x] on database failure, program must close
 - [ ] on exception, errors must be reported
 
 # list of changes:
