@@ -18,7 +18,11 @@ public class SQLite {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("Database database.db created.");
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @database create");
+			System.exit (0);
+		}
     }
     
     public void createUserTable() {
@@ -33,7 +37,11 @@ public class SQLite {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("Table users in database.db created.");
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @user table creation");
+			System.exit (0);
+		}
     }
     
     public void dropUserTable() {
@@ -43,7 +51,11 @@ public class SQLite {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("Table users in database.db dropped.");
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @drop user table");
+			System.exit (0);
+		}
     }
     
     public ArrayList<User> getUsers(){
@@ -61,7 +73,11 @@ public class SQLite {
                                    rs.getInt("role")));
             
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @get users");
+			System.exit (0);
+		}
         return users;
     }
 	
@@ -135,7 +151,11 @@ public class SQLite {
 //      pstmt.setString(1, username);
 //      pstmt.setString(2, password);
 //      pstmt.executeUpdate();
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @account creation");
+			System.exit (0);
+		}
     }
     
     public void addUser(String username, String password, int role) {
@@ -146,7 +166,11 @@ public class SQLite {
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()){
             stmt.execute(sql);
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @account creation");
+			System.exit (0);
+		}
     }
     
     public void removeUser(String username) {
@@ -156,7 +180,11 @@ public class SQLite {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("User " + username + " has been deleted.");
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+			ex.printStackTrace ();
+			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @remove user");
+			System.exit (0);
+		}
     }
     
 }
