@@ -88,7 +88,7 @@ public class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-		String username = jTextField1.getText ();
+		String username = jTextField1.getText ().toLowerCase ();
 		String password = new String (jTextField2.getPassword ());
 		
 		if (frame.authenticate (username, password)) {
