@@ -87,7 +87,9 @@ public class SQLite {
 	}
     
     public void addUser(String username, String password) {
-        String sql = "INSERT INTO users(username,password) VALUES('" + username + "','" + password + "')";
+		String hashedPassword = PasswordEncryption.hash (password);
+		
+        String sql = "INSERT INTO users(username,password) VALUES('" + username + "','" + hashedPassword + "')";
         
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()){
@@ -103,7 +105,9 @@ public class SQLite {
     }
     
     public void addUser(String username, String password, int role) {
-        String sql = "INSERT INTO users(username,password,role) VALUES('" + username + "','" + password + "','" + role + "')";
+		String hashedPassword = PasswordEncryption.hash (password);
+		
+        String sql = "INSERT INTO users(username,password,role) VALUES('" + username + "','" + hashedPassword + "','" + role + "')";
         
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()){
