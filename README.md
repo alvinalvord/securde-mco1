@@ -17,10 +17,10 @@
 - [x] on register, errors must be logged
 - [x] on access, user should not access all roles
 - [x] on database, password should be encrypted
-- [ ] on database operation, logs must be recorded
+- [x] on database operation, logs must be recorded
 - [x] on database failure, program must close
-- [ ] on exception, errors must be reported
-- [ ] on logout, user must reset
+- [x] on exception, errors must be reported
+- [x] on logout, user must reset
 
 # list of changes:
 Security Issue | Java file(s) modified | Possible Vulnerability | Solution

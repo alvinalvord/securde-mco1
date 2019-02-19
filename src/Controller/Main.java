@@ -25,6 +25,11 @@ public class Main {
 	public User getUser () {
 		return user;
 	}
+	
+	public void logout () {
+		user = null;
+		userLock = 0;
+	}
     
     public static void main(String[] args) {
         new Main().init();

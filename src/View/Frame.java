@@ -195,6 +195,7 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_clientBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+		controller.logout ();
         frameView.show(Container, "loginPnl");
     }//GEN-LAST:event_logoutBtnActionPerformed
 
@@ -252,10 +253,7 @@ public class Frame extends javax.swing.JFrame {
 			default: break;
 		}
 		
-		if (controller.getUser ().getRole () == 5) {
-			Content.add (adminHomePnl);
-		}
-		System.out.println (controller.getUser ().getRole ());
+		System.out.println ("User access level: " + controller.getUser ().getRole ());
         frameView.show(Container, "mainPnl");
     }
 	
