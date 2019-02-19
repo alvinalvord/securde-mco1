@@ -17,6 +17,8 @@ public class SQLite {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("Database database.db created.");
+				
+				Controller.Logger.log ("database creation", "database was created");
             }
         } catch (Exception ex) {
 			ex.printStackTrace ();
@@ -37,6 +39,7 @@ public class SQLite {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("Table users in database.db created.");
+			Controller.Logger.log ("user table creation", "user table was created");
         } catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @user table creation");
@@ -45,12 +48,14 @@ public class SQLite {
     }
     
     public void dropUserTable() {
-        String sql = "DROP TABLE users;";
-
+        String sql = "DROP TABLE IF EXISTS users;";
+		
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
+			
             System.out.println("Table users in database.db dropped.");
+			Controller.Logger.log ("drop table", "users table dropped");
         } catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @drop user table");
@@ -73,6 +78,8 @@ public class SQLite {
                                    rs.getInt("role")));
             
             }
+			
+			Controller.Logger.log ("data get", "all users were queried");
         } catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @get users");
@@ -105,6 +112,8 @@ public class SQLite {
                                    rs.getString("password"),
                                    rs.getInt("role"));
             }
+			
+			Controller.Logger.log ("data get", "login request was queried");
 			return user;
         } catch (Exception ex) {
 			ex.printStackTrace ();
@@ -127,6 +136,8 @@ public class SQLite {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
 			while (rs.next ()) { return true; }
+			
+			Controller.Logger.log ("data get", "username" + user + " availability checked");
 		} catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @register");
@@ -145,6 +156,7 @@ public class SQLite {
             Statement stmt = conn.createStatement()){
             stmt.execute(sql);
             
+			Controller.Logger.log ("user add", "user " + username + " added");
 //  For this activity, we would not be using prepared statements first.
 //      String sql = "INSERT INTO users(username,password) VALUES(?,?)";
 //      PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -166,6 +178,7 @@ public class SQLite {
         try (Connection conn = DriverManager.getConnection(driverURL);
             Statement stmt = conn.createStatement()){
             stmt.execute(sql);
+			Controller.Logger.log ("user add", "user " + username + " added");
         } catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @account creation");
@@ -180,6 +193,8 @@ public class SQLite {
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("User " + username + " has been deleted.");
+			
+			Controller.Logger.log ("user add", "user " + username + " added");
         } catch (Exception ex) {
 			ex.printStackTrace ();
 			Controller.Logger.log ("database access error", "forced exit due to failure to connect to database @remove user");
