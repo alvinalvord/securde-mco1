@@ -24,4 +24,5 @@
 # list of changes:
 Security Issue | Java file(s) modified | possible vulnerability | solution
 -|-|-|-
-password fields are not censored | Login, Register | ? | changed JTextField to JPasswordField
+password fields are not censored | Login, Register | password can be seen by other people | changed JTextField to JPasswordField
+username and password fields do not reset | Login, Register | another user can login using the previous user's credentials | fields are reset to empty string when changing views
