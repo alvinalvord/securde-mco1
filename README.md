@@ -3,9 +3,9 @@
 # To do:
 - [x] on login, password must be censored
 - [x] on login, username and password field must reset
-- [ ] on login, user must be authenticated
-- [ ] on login, user and password must not be null
-- [ ] on login, there should be feedback on login failure
+- [x] on login, user must be authenticated
+- [x] on login, user and password must not be null
+- [x] on login, there should be feedback on login failure
 - [x] on register, password and confirm must be censored
 - [x] on register, username and password field must reset
 - [x] on register, password must be verified
